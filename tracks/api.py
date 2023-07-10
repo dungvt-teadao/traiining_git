@@ -45,21 +45,6 @@ def change_track(request, track_id : int , data:TrackSchema):
         return 404 , {"message":"Could not find track"}
 
     
-@api.delete("/tracks/{track_id}", response={200: None, 404: NotFoundSchema})
-def delete_track(request, track_id: int):
-    try:
-        track = Track.objects.get(pk=track_id)
-        track.delete()
-        return 200
-    except Track.DoesNotExist as e:
-        return 404, {"message": "Could not find track"}
-    
 
-@api.post("/upload", url_name='upload')
-def upload(request, file: UploadedFile = File(...)):
-    data = file.read()
-    return {
-        'name' :file.name,
-        'data':data
-    }
+
 
